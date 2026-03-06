@@ -1,26 +1,24 @@
-package com.solncev.controller;
+package ru.kpfu.itis.group400.stashkov.controller;
 
-import com.solncev.model.User;
-import com.solncev.repository.UserRepository;
-import com.solncev.service.HelloService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import ru.kpfu.itis.group400.stashkov.dto.UserDto;
+import ru.kpfu.itis.group400.stashkov.service.HelloService;
+import ru.kpfu.itis.group400.stashkov.service.UserService;
 
-import javax.print.attribute.standard.Media;
-import java.awt.*;
 import java.util.List;
 
 @RestController
 public class HelloController {
 
     private final HelloService helloService;
-    private final UserRepository userRepository;
+    private final UserService userService;  // заменили репозиторий на сервис
 
-    public HelloController(HelloService helloService, UserRepository userRepository) {
+    public HelloController(HelloService helloService, UserService userService) {
         this.helloService = helloService;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/hello")
@@ -29,7 +27,7 @@ public class HelloController {
     }
 
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserDto> findAll() {   // возвращаем DTO, а не сущности
+        return userService.findAll();
     }
 }

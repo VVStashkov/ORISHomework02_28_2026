@@ -1,4 +1,4 @@
-package com.solncev.config;
+package ru.kpfu.itis.group400.stashkov.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan("com.solncev.controller")
+@ComponentScan("ru.kpfu.itis.group400.stashkov.controller")
 public class WebConfig extends WebMvcConfigurationSupport {
 
     @Override

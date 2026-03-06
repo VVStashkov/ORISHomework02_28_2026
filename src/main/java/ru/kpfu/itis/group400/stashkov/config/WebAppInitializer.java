@@ -1,4 +1,4 @@
-package com.solncev.config;
+package ru.kpfu.itis.group400.stashkov.config;
 
 import jakarta.servlet.Filter;
 import org.springframework.context.annotation.Configuration;

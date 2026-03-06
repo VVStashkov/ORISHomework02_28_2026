@@ -1,4 +1,4 @@
-package com.solncev.service;
+package ru.kpfu.itis.group400.stashkov.service;
 
 import org.springframework.stereotype.Service;
 

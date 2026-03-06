@@ -1,6 +1,6 @@
-package com.solncev.repository;
+package ru.kpfu.itis.group400.stashkov.repository;
 
-import com.solncev.model.User;
+import ru.kpfu.itis.group400.stashkov.model.User;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,12 +20,8 @@ public class UserRepository {
 
     @Transactional(readOnly = true)
     public List<User> findAll() {
-        Session session;
-        try {
-            session = sessionFactory.getCurrentSession();
-        } catch (HibernateException e) {
-            session = sessionFactory.openSession();
-        }
-        return session.createQuery("from User").list();
+        return sessionFactory.getCurrentSession()
+                .createQuery("from User", User.class)
+                .list();
     }
 }

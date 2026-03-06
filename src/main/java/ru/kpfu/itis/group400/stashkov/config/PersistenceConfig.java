@@ -1,4 +1,4 @@
-package com.solncev.config;
+package ru.kpfu.itis.group400.stashkov.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
@@ -56,7 +56,7 @@ public class PersistenceConfig implements EnvironmentAware {
     public EntityManagerFactory entityManagerFactory(DataSource dataSource, HibernateJpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
-        entityManagerFactory.setPackagesToScan("com.solncev.model");
+        entityManagerFactory.setPackagesToScan("ru.kpfu.itis.group400.stashkov.model");
         entityManagerFactory.setDataSource(dataSource);
         entityManagerFactory.afterPropertiesSet();
         return entityManagerFactory.getObject();
@@ -67,7 +67,7 @@ public class PersistenceConfig implements EnvironmentAware {
     public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setPackagesToScan("com.solncev.model");
+        sessionFactory.setPackagesToScan("ru.kpfu.itis.group400.stashkov.model");
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
         sessionFactory.setHibernateProperties(hibernateProperties);

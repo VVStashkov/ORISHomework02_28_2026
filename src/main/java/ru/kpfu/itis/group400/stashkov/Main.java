@@ -1,4 +1,4 @@
-package com.solncev;
+package ru.kpfu.itis.group400.stashkov;
 
 public class Main {
     public static void main(String[] args) {
