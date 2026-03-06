@@ -43,24 +43,24 @@ public class PersistenceConfig implements EnvironmentAware {
         return dataSource;
     }
 
-    @Bean
-    public HibernateJpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setDatabase(Database.valueOf(environment.getProperty("spring.database")));
-        vendorAdapter.setShowSql(true);
-        vendorAdapter.setGenerateDdl(true);
-        return vendorAdapter;
-    }
+//    @Bean
+//    public HibernateJpaVendorAdapter jpaVendorAdapter() {
+//        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+//        vendorAdapter.setDatabase(Database.valueOf(environment.getProperty("spring.database")));
+//        vendorAdapter.setShowSql(true);
+//        vendorAdapter.setGenerateDdl(true);
+//        return vendorAdapter;
+//    }
 
-    @Bean
-    public EntityManagerFactory entityManagerFactory(DataSource dataSource, HibernateJpaVendorAdapter jpaVendorAdapter) {
-        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
-        entityManagerFactory.setPackagesToScan("ru.kpfu.itis.group400.stashkov.model");
-        entityManagerFactory.setDataSource(dataSource);
-        entityManagerFactory.afterPropertiesSet();
-        return entityManagerFactory.getObject();
-    }
+//    @Bean
+//    public EntityManagerFactory entityManagerFactory(DataSource dataSource, HibernateJpaVendorAdapter jpaVendorAdapter) {
+//        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+//        entityManagerFactory.setJpaVendorAdapter(jpaVendorAdapter);
+//        entityManagerFactory.setPackagesToScan("ru.kpfu.itis.group400.stashkov.model");
+//        entityManagerFactory.setDataSource(dataSource);
+//        entityManagerFactory.afterPropertiesSet();
+//        return entityManagerFactory.getObject();
+//    }
 
     @Bean
     @Primary
@@ -68,9 +68,11 @@ public class PersistenceConfig implements EnvironmentAware {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setPackagesToScan("ru.kpfu.itis.group400.stashkov.model");
+
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto", "update");
         sessionFactory.setHibernateProperties(hibernateProperties);
+
         return sessionFactory;
     }
 
@@ -84,8 +86,8 @@ public class PersistenceConfig implements EnvironmentAware {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-    @Bean
-    public PersistenceAnnotationBeanPostProcessor persistenceAnnotationBeanPostProcessor() {
-        return new PersistenceAnnotationBeanPostProcessor();
-    }
+//    @Bean
+//    public PersistenceAnnotationBeanPostProcessor persistenceAnnotationBeanPostProcessor() {
+//        return new PersistenceAnnotationBeanPostProcessor();
+//    }
 }
