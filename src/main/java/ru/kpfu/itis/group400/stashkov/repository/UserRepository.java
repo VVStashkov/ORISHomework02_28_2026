@@ -27,13 +27,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "insert into users (username) values (:#{user.username})", nativeQuery = true)
-    void create(User user);
+    @Query(value = "insert into users (username) values (:#{#user.username})", nativeQuery = true)
+    void create(@Param("user") User user);
 
     @Modifying
     @Transactional
-    @Query(value = "update users u set u.username = :#{user.username} where u.id = :#{user.id}",
+    @Query(value = "update users u set username = :#{#user.username} where id = :#{#user.id}",
             nativeQuery = true)
-    void update(User user);
+    void update(@Param("user") User user);
 
 }
