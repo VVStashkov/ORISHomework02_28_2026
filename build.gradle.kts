@@ -12,6 +12,7 @@ val hibernateVersion: String by project
 val postgresVersion: String by project
 val freemarkerVersion: String by project
 val hikariVersion: String by project
+val springDataVersion: String by project
 
 repositories {
     mavenCentral()
@@ -28,6 +29,7 @@ dependencies {
 
     implementation("org.freemarker:freemarker:$freemarkerVersion")
     implementation("com.zaxxer:HikariCP:$hikariVersion")
+    implementation("org.springframework.data:spring-data-jpa:$springDataVersion")
 
     implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
 }

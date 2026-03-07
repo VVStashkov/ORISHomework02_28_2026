@@ -1,27 +1,39 @@
 package ru.kpfu.itis.group400.stashkov.repository;
 
-import ru.kpfu.itis.group400.stashkov.model.User;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.kpfu.itis.group400.stashkov.model.User;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
-public class UserRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    private final SessionFactory sessionFactory;
+    Optional<User> findByUsername(String username);
 
-    public UserRepository(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    @Query(value = "select u from User u where u.username = :username")
+    Optional<User> getByUsername(String username);
 
-    @Transactional(readOnly = true)
-    public List<User> findAll() {
-        return sessionFactory.getCurrentSession()
-                .createQuery("from User", User.class)
-                .list();
-    }
+    //1 означает что нужно взять первый аргумент из метода
+    @Query(value = "select * from users u where u.username = ?1", nativeQuery = true)
+    Optional<User> getByUsernameNative(String username);
+
+    @Override
+    void delete(User entity);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into users (username) values (:#{user.username})", nativeQuery = true)
+    void create(User user);
+
+    @Modifying
+    @Transactional
+    @Query(value = "update users u set u.username = :#{user.username} where u.id = :#{user.id}",
+            nativeQuery = true)
+    void update(User user);
+
 }

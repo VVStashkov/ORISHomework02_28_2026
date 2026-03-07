@@ -14,7 +14,7 @@ import java.util.List;
 public class HelloController {
 
     private final HelloService helloService;
-    private final UserService userService;  // заменили репозиторий на сервис
+    private final UserService userService;
 
     public HelloController(HelloService helloService, UserService userService) {
         this.helloService = helloService;
